@@ -1,0 +1,487 @@
+@font-face{
+  font-family:"StarPanda";
+  src:url("../../02_素材/字體/StarPandaKidsBeta2.1.otf") format("opentype");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  overflow:hidden;
+  font-family:"Ma Shan Zheng",cursive;
+}
+
+.game-container{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  background-image:url("../../02_素材/背景/level2_forest.png");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.intro-screen{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,.42);
+  z-index:50;
+}
+
+.intro-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:1;
+}
+
+.ending-screen{
+  position:absolute;
+  inset:0;
+  z-index:60;
+}
+
+.ending-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:1;
+}
+
+.dialog-box{
+  width:60%;
+  padding:30px 40px;
+  border-radius:28px;
+  background:
+  linear-gradient(
+    180deg,
+    rgba(245,236,205,0.92),
+    rgba(228,214,175,0.88)
+  );
+  border:4px solid #b08a52;
+  backdrop-filter:blur(8px);
+  font-family:"Ma Shan Zheng",cursive;
+  color:#5a3513;
+  box-shadow:
+    0 0 0 8px rgba(255,230,160,0.18),
+    0 10px 25px rgba(0,0,0,.25),
+    0 0 35px rgba(255,220,150,.22);
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+}
+
+.dialog-box::after{
+  content:"";
+  position:absolute;
+  top:18px;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  border:2px dashed rgba(145,105,48,.32);
+  border-radius:18px;
+  pointer-events:none;
+}
+
+.dialog-box p{
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+  font-size:32px;
+  line-height:1.8;
+  color:#5a3513;
+}
+
+.game-screen{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.game-board{
+  width:1100px;
+  max-width:90vw;
+  padding:42px 50px 38px;
+  border-radius:35px;
+  background:rgba(255,245,220,.28);
+  backdrop-filter:blur(8px);
+  border:4px solid rgba(255,220,150,.45);
+  box-shadow:0 0 30px rgba(0,0,0,.18);
+  text-align:center;
+}
+
+.progress-area{
+  color:#fff7c2;
+  font-size:34px;
+  font-weight:bold;
+  text-shadow:0 0 10px rgba(60,40,10,0.9);
+  margin-bottom:35px;
+}
+
+#progressDots{
+  margin-top:8px;
+  letter-spacing:10px;
+  font-size:28px;
+}
+
+.letter-row{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+.letter-card{
+  width:105px;
+  height:95px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#c98742,#8b4f22);
+  border:4px solid #5b3215;
+  color:#fff4bd;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:52px;
+  font-weight:bold;
+  text-shadow:0 0 8px rgba(255,236,150,0.9);
+  box-shadow:0 8px 0 #4b2811,0 0 18px rgba(255,220,130,0.5);
+}
+
+.missing{
+  color:#fff;
+  background:linear-gradient(180deg,#7a5535,#4b2c18);
+  animation:pulse 1.2s infinite;
+}
+
+.options-area{
+  margin-top:65px;
+  display:flex;
+  justify-content:center;
+  gap:35px;
+}
+
+.option-btn{
+  width:105px;
+  height:85px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffe08a,#d88931);
+  border:4px solid #7a4318;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:46px;
+  font-weight:bold;
+  color:#4b260c;
+  cursor:pointer;
+  box-shadow:0 7px 0 #633411,0 0 16px rgba(255,218,110,0.75);
+  transition:.2s;
+}
+
+.option-btn:hover{
+  transform:translateY(-5px);
+}
+
+.option-btn.correct{
+  background:linear-gradient(180deg,#fff7a8,#ffd447);
+  box-shadow:0 0 28px rgba(255,242,120,1);
+}
+
+.option-btn.wrong{
+  background:linear-gradient(180deg,#d9d9d9,#8d8d8d);
+  color:white;
+}
+
+.feedback{
+  min-height:38px;
+  margin-top:32px;
+  font-size:30px;
+  font-weight:bold;
+  color:#fff7b0;
+  text-shadow:0 0 12px rgba(80,45,10,1);
+}
+
+.ending-dialog{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:70%;
+  max-width:800px;
+  padding:28px 38px;
+  border-radius:32px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,245,220,0.78),
+    rgba(242,214,155,0.72)
+  );
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:4px solid rgba(155,107,47,0.75);
+  box-shadow:
+    0 0 0 8px rgba(255,230,160,0.18),
+    0 12px 36px rgba(0,0,0,0.35),
+    0 0 28px rgba(255,230,150,0.22);
+  text-align:center;
+  color:#5a3513;
+  overflow:hidden;
+  z-index:2;
+}
+
+.ending-dialog::before{
+  content:"";
+  position:absolute;
+  top:18px;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  border:2px dashed rgba(123,78,30,0.28);
+  border-radius:22px;
+  pointer-events:none;
+}
+
+.ending-dialog p{
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+  font-size:32px;
+  line-height:1.75;
+  position:relative;
+  z-index:2;
+}
+
+#trailSign{
+  position:fixed;
+  right:35px;
+  bottom:120px;
+  width:200px;
+  height:90px;
+  cursor:pointer;
+  z-index:99999;
+  background:transparent;
+  transform:rotate(9deg);
+}
+
+.letter-card.fixed{
+  animation:signFixed .9s ease;
+  background:linear-gradient(180deg,#fff1a8,#d99032);
+  box-shadow:
+    0 8px 0 #4b2811,
+    0 0 28px rgba(255,235,120,1),
+    0 0 48px rgba(255,210,70,.75);
+}
+
+.letter-row.success-glow .letter-card{
+  box-shadow:
+    0 8px 0 #4b2811,
+    0 0 26px rgba(255,235,120,.95);
+}
+
+.next-area-btn{
+  position:fixed;
+  left:50%;
+  bottom:240px;
+  transform:translateX(-50%);
+  width:700px;
+  height:130px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:80px;
+  background:
+  linear-gradient(
+    180deg,
+    #487d47,
+    #2f6a33
+  );
+  border:5px solid #efe4a3;
+  color:#f7f0d0;
+  font-size:62px;
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+  cursor:pointer;
+  box-shadow:
+    0 0 35px rgba(255,240,170,.65),
+    0 0 60px rgba(255,240,170,.35);
+  z-index:999;
+  transition:.3s;
+}
+
+.next-area-btn:hover{
+  transform:
+  translateX(-50%)
+  scale(1.05);
+  box-shadow:
+    0 0 45px rgba(255,240,170,.9),
+    0 0 80px rgba(255,240,170,.5);
+}
+
+body.next-area-mode::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:998;
+  pointer-events:none;
+}
+
+/* ===================== */
+/* 森林羅盤獎勵畫面 */
+/* ===================== */
+
+.compass-screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:80;
+}
+
+.compass-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.65);
+}
+
+.compass-reward{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  cursor:pointer;
+  animation:compassAppear 1s ease;
+}
+
+.compass-img{
+  width:320px;
+  filter:
+  drop-shadow(0 0 25px rgba(255,230,120,.8));
+  animation:compassFloat 3s infinite ease-in-out;
+}
+
+.reward-title{
+  margin-top:20px;
+  font-size:36px;
+  color:#fff3c4;
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+}
+
+.reward-name{
+  margin-top:10px;
+  font-size:60px;
+  color:#ffe48a;
+  text-shadow:
+  0 0 20px rgba(255,220,120,.8);
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+}
+
+.reward-desc{
+  margin-top:20px;
+  font-size:28px;
+  line-height:1.8;
+  color:white;
+  font-family:"Ma Shan Zheng",cursive;
+}
+
+.reward-click{
+  margin-top:20px;
+  font-size:30px;
+  color:#fff7b0;
+  font-family:"StarPanda","Ma Shan Zheng",cursive;
+  text-shadow:
+  0 0 12px rgba(255,230,120,.8);
+  animation:clickHint 1.2s infinite ease-in-out;
+}
+
+.compass-reward.collected{
+  animation:collectCompass .9s ease forwards;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 14px rgba(255,255,255,.4);}
+  50%{box-shadow:0 0 28px rgba(255,244,160,1);}
+  100%{box-shadow:0 0 14px rgba(255,255,255,.4);}
+}
+
+@keyframes signFixed{
+  0%{
+    transform:scale(.8) rotate(-4deg);
+    opacity:.4;
+  }
+
+  50%{
+    transform:scale(1.15) rotate(3deg);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1) rotate(0deg);
+    opacity:1;
+  }
+}
+
+@keyframes compassAppear{
+  from{
+    opacity:0;
+    transform:scale(.7);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes compassFloat{
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-12px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+}
+
+@keyframes clickHint{
+  0%{
+    opacity:.45;
+    transform:scale(.96);
+  }
+
+  50%{
+    opacity:1;
+    transform:scale(1.05);
+  }
+
+  100%{
+    opacity:.45;
+    transform:scale(.96);
+  }
+}
+
+@keyframes collectCompass{
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(.25) translateY(-120px);
+    opacity:0;
+  }
+}

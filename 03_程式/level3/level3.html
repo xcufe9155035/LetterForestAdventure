@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>鹿角草原</title>
+
+    <link rel="stylesheet" href="level3.css">
+</head>
+
+<body>
+
+<div id="game-container">
+
+    <div id="dark-overlay"></div>
+
+    <img
+        id="guardian-deer"
+        src="../../02_素材/角色/guardian_deer.png"
+        alt="guardian deer"
+    >
+
+    <div id="intro-box" class="story-overlay">
+
+        <div id="story-text">
+            <p>歡迎來到鹿角草原！</p>
+            <p>動物朋友們迷路了……</p>
+            <p>請仔細聆聽單字，找出正確的動物圖片，</p>
+            <p>幫助牠們回家吧！</p>
+            <p>— 鹿角先知</p>
+        </div>
+
+        <button id="start-btn" class="hidden">
+            GO
+        </button>
+
+    </div>
+
+    <div id="game-area" class="hidden">
+
+        <div id="question-panel">
+
+            <div id="progress-text">
+                第 1 / 5 題
+            </div>
+
+            <button id="play-audio-btn">
+                🔊
+            </button>
+
+        </div>
+
+        <div id="cards-area"></div>
+
+    </div>
+
+    <div id="complete-box" class="paper-box hidden">
+
+        <p>
+            太好了，小小探險家！
+        </p>
+
+        <p>
+            你成功幫助了許多動物朋友，鹿角草原恢復力量了！
+        </p>
+
+        <p>
+            這對鹿角不僅是草原的寶物，
+        </p>
+
+        <p>
+            它還能感應遠方失落的魔法......
+        </p>
+
+        <img
+            id="sacred-antlers"
+            src="../../02_素材/圖卡/sacred_antlers.png"
+            alt="神聖鹿角"
+        >
+
+        <h2>
+            獲得神聖鹿角
+        </h2>
+
+        <button id="next-btn">
+            前往下一區域
+        </button>
+
+    </div>
+
+</div>
+
+<audio id="bgm" loop>
+    <source
+        src="../../04_音檔/Ballerina - Quincas Moreira.mp3"
+        type="audio/mpeg">
+</audio>
+
+<script src="level3.js"></script>
+
+</body>
+</html>

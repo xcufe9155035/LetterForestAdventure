@@ -1,0 +1,356 @@
+@font-face{
+    font-family:"StarPandaKids";
+    src:url("../../02_素材/字體/StarPandaKidsBeta2.1.otf") format("opentype");
+    font-weight:normal;
+    font-style:normal;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:"StarPandaKids",cursive;
+}
+
+#game-container{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background-image:url("../../02_素材/背景/level3_grassland.png");
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+}
+
+.story-overlay{
+    background:transparent;
+}
+
+#dark-overlay{
+    display:none;
+}
+
+.hidden{
+    display:none !important;
+}
+
+#guardian-deer{
+    position:absolute;
+    left:4%;
+    bottom:3%;
+    width:18vw;
+    max-width:230px;
+    z-index:20;
+    filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));
+}
+
+.paper-box{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:700px;
+    max-width:86vw;
+    padding:34px 40px;
+    text-align:center;
+    z-index:30;
+
+    background:rgba(255,238,190,.94);
+    border:5px solid #8b5a2b;
+    border-radius:24px;
+    box-shadow:0 12px 35px rgba(0,0,0,.45);
+}
+
+.paper-box p{
+    font-size:32px;
+    line-height:1.55;
+    color:#4b2b12;
+}
+
+.paper-box button,
+#play-audio-btn{
+    margin-top:24px;
+    padding:12px 34px;
+    border:none;
+    border-radius:999px;
+    font-family:"StarPandaKids",cursive;
+    font-size:26px;
+    color:#fff;
+    background:linear-gradient(180deg,#d89b3a,#9b5a16);
+    cursor:pointer;
+    box-shadow:0 6px 0 #6b3a0c,0 10px 18px rgba(0,0,0,.3);
+}
+
+.paper-box button:active,
+#play-audio-btn:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #6b3a0c,0 6px 12px rgba(0,0,0,.25);
+}
+
+#game-area{
+    position:absolute;
+    inset:0;
+    z-index:15;
+}
+
+#question-panel{
+    position:absolute;
+    top:7%;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    z-index:25;
+}
+
+#progress-text{
+    font-size:34px;
+    color:#fff8c9;
+    text-shadow:
+        0 0 8px rgba(0,0,0,.9),
+        0 0 18px rgba(255,210,90,.9);
+}
+
+#play-audio-btn{
+    font-size:28px;
+}
+
+#cards-area{
+    position:absolute;
+    left:50%;
+    top:53%;
+    transform:translate(-50%,-50%);
+    width:620px;
+    max-width:78vw;
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:28px;
+    z-index:22;
+}
+
+.animal-card{
+    height:170px;
+    border-radius:28px;
+    border:4px solid rgba(255,255,255,.85);
+    background:rgba(255,248,220,.88);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 22px rgba(0,0,0,.28),
+        inset 0 0 18px rgba(255,255,255,.75);
+
+    transition:.25s ease;
+}
+
+.animal-card:hover{
+    transform:scale(1.05);
+}
+
+.animal-card img{
+    max-width:78%;
+    max-height:82%;
+    object-fit:contain;
+    pointer-events:none;
+}
+
+.animal-card.correct{
+    animation:correctGlow .7s ease forwards;
+}
+
+.animal-card.wrong{
+    animation:wrongShake .45s ease;
+}
+
+@keyframes correctGlow{
+    0%{transform:scale(1);}
+    50%{
+        transform:scale(1.12);
+        box-shadow:0 0 35px rgba(255,232,120,1);
+    }
+    100%{
+        transform:scale(1);
+        box-shadow:0 0 25px rgba(255,232,120,.9);
+    }
+}
+
+@keyframes wrongShake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-10px);}
+    40%{transform:translateX(10px);}
+    60%{transform:translateX(-8px);}
+    80%{transform:translateX(8px);}
+}
+
+#sacred-antlers{
+    width:170px;
+    max-width:42vw;
+    margin:20px auto 4px;
+    display:block;
+    animation:antlersFloat 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 0 18px rgba(255,220,90,.9));
+}
+
+#complete-box h2{
+    margin-top:8px;
+    font-size:42px;
+    color:#7a3f10;
+    text-shadow:0 0 8px rgba(255,230,140,.9);
+}
+
+#next-btn{
+    opacity:0;
+    pointer-events:none;
+}
+
+#next-btn.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+@keyframes antlersFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.title-line{
+    font-size:42px !important;
+}
+
+.main-line{
+    font-size:34px !important;
+}
+
+.story-overlay{
+    position:absolute;
+    inset:0;
+    z-index:30;
+    background:rgba(0,0,0,.18);
+}
+
+#story-text{
+    position:absolute;
+    left:50%;
+    top:70%;
+    transform:translateX(-50%);
+    width:760px;
+    max-width:86vw;
+    text-align:center;
+    color:white;
+    opacity:0;
+    pointer-events:none;
+}
+
+#story-text.play{
+    animation:level3StoryRise 12s linear forwards;
+}
+
+#story-text p{
+    font-size:34px;
+    line-height:1.9;
+    margin:6px 0;
+    text-shadow:
+        0 0 10px rgba(0,0,0,1),
+        0 0 18px rgba(255,240,180,.6);
+}
+
+#story-text p:first-child{
+    font-size:46px;
+    color:#fff2b0;
+}
+
+@keyframes level3StoryRise{
+    0%{
+        top:70%;
+        opacity:0;
+    }
+
+    12%{
+        opacity:1;
+    }
+
+    72%{
+        top:25%;
+        opacity:1;
+    }
+
+    100%{
+        top:16%;
+        opacity:1;
+    }
+}
+
+#start-btn{
+    position:absolute;
+    left:50%;
+    bottom:10%;
+
+    transform:translateX(-50%);
+
+    padding:18px 50px;
+
+    border:none;
+    border-radius:999px;
+
+    font-family:"StarPandaKids",cursive;
+    font-size:34px;
+
+    color:#fff8e8;
+
+    background:
+    linear-gradient(
+        180deg,
+        #d89b3a,
+        #9b5a16
+    );
+
+    box-shadow:
+        0 8px 0 #6b3a0c,
+        0 15px 25px rgba(0,0,0,.35);
+
+    cursor:pointer;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.8s;
+
+    z-index:50;
+}
+
+#start-btn.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+#start-btn:hover{
+    transform:
+        translateX(-50%)
+        translateY(-3px)
+        scale(1.05);
+}
+
+#start-btn:active{
+    transform:
+        translateX(-50%)
+        translateY(3px);
+
+    box-shadow:
+        0 3px 0 #6b3a0c,
+        0 8px 12px rgba(0,0,0,.25);
+}

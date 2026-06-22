@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第二關：狐狸森林</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="level2.css">
+</head>
+
+<body>
+
+  <div class="game-container">
+
+    <!-- 開場提示 -->
+    <section id="introScreen" class="intro-screen hidden">
+
+      <div class="dialog-box intro-dialog">
+
+        <p>
+          歡迎來到狐狸森林！<br>
+          森林裡的路牌被風吹得東倒西歪，<br>
+          有些字母也悄悄消失了......<br><br>
+
+          請依照正確的字母順序，<br>
+          找出缺少的字母，<br>
+          幫忙修復森林路牌吧！<br>
+
+          <span style="margin-left:460px;display:inline-block;">
+            by 森林信使
+          </span>
+
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- 路牌 -->
+    <div id="trailSign"></div>
+
+    <!-- 遊戲區 -->
+    <section id="gameScreen" class="game-screen hidden">
+
+      <div class="game-board">
+
+        <div class="progress-area">
+
+          <div id="questionCount">
+            第 1 / 3 題
+          </div>
+
+          <div id="progressDots">
+            ● ○ ○
+          </div>
+
+        </div>
+
+        <div id="letterRow" class="letter-row"></div>
+
+        <div id="optionsArea" class="options-area"></div>
+
+        <div id="feedback" class="feedback"></div>
+
+      </div>
+
+    </section>
+
+    <!-- 過關卷軸 -->
+    <section id="endingScreen" class="ending-screen hidden">
+
+      <div class="dialog-box ending-dialog">
+
+        <p>
+
+          太棒了！<br>
+
+          森林裡的路牌終於恢復光芒了。<br>
+
+          因為你的幫助，<br>
+
+          通往前方的道路再次開啟。<br><br>
+
+          森林信使似乎有東西要送給你......
+
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- 森林羅盤 -->
+    <section id="compassScreen" class="compass-screen hidden">
+
+      <div class="compass-reward">
+
+        <img
+          src="../../02_素材/圖卡/forest_compass.png"
+          alt="森林羅盤"
+          class="compass-img"
+        >
+
+        <div class="reward-title">
+          獲得新信物
+        </div>
+
+        <div class="reward-name">
+          🧭 森林羅盤
+        </div>
+
+        <div class="reward-desc">
+          傳說只要帶著森林羅盤，<br>
+          就不會在字母森林中迷失方向。
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- 前往下一區域 -->
+  <div id="nextAreaBtn" class="next-area-btn hidden">
+    🦌 前往下一個區域 →
+  </div>
+
+  <!-- 音樂 -->
+  <audio id="bgm" loop>
+    <source
+      src="../../04_音檔/Crossing The Streams - Jeremy Korpas.mp3"
+      type="audio/mpeg">
+  </audio>
+
+  <script src="level2.js"></script>
+
+</body>
+</html>

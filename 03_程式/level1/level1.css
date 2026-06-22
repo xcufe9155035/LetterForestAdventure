@@ -1,0 +1,1987 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap');
+
+*{box-sizing:border-box;}
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+body{
+    background:#000;
+}
+.stage{
+    display:none;
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+}
+.stage.active{
+    display:block;
+}
+
+/* ===== 1-1 ===== */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+#stage1{
+font-family:'ZCOOL KuaiLe',sans-serif;
+color:white;
+background-image:url("../../02_素材/背景/moonlight-lake.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.scene{
+width:100vw;
+height:100vh;
+position:relative;
+overflow:hidden;
+background:rgba(0,0,0,.08);
+}
+
+.story-hint{
+position:absolute;
+left:50%;
+top:45%;
+transform:translateX(-50%);
+width:760px;
+text-align:center;
+animation:storyFloatUp 14s linear forwards;
+pointer-events:none;
+}
+
+@keyframes storyFloatUp{
+0%{
+top:45%;
+opacity:0;
+}
+
+8%{
+opacity:1;
+}
+
+65%{
+top:15%;
+opacity:1;
+}
+
+100%{
+top:6%;
+opacity:1;
+transform:translateX(-50%) scale(1.02);
+}
+}
+
+.story-hint h1{
+font-size:54px;
+margin:0 0 24px 0;
+color:#fff8d8;
+text-shadow:
+0 0 12px rgba(0,0,0,1),
+0 0 22px rgba(255,235,160,.8);
+}
+
+.feather{
+font-size:42px;
+margin-bottom:20px;
+filter:drop-shadow(0 0 12px rgba(255,240,180,.9));
+animation:featherGlow 2s infinite alternate;
+}
+
+@keyframes featherGlow{
+from{
+opacity:.7;
+transform:rotate(-8deg) scale(1);
+}
+
+to{
+opacity:1;
+transform:rotate(5deg) scale(1.08);
+}
+}
+
+.story-hint p{
+font-size:28px;
+line-height:1.9;
+margin:14px 0;
+color:white;
+text-shadow:
+0 0 10px rgba(0,0,0,1),
+0 0 16px rgba(0,0,0,1);
+}
+
+.guardian{
+font-size:24px;
+margin-top:24px;
+color:#ffe9a3;
+text-shadow:0 0 10px rgba(255,230,150,.8);
+}
+
+.lake-click{
+position:absolute;
+left:30%;
+bottom:105px;
+width:42%;
+height:210px;
+border-radius:50%;
+cursor:pointer;
+background:rgba(255,255,255,0);
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:rgba(0,0,0,.42);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99;
+}
+
+.hidden{
+display:none;
+}
+
+.modal-layout{
+display:flex;
+gap:35px;
+align-items:center;
+justify-content:center;
+}
+
+.game-box{
+position:relative;
+width:720px;
+padding:30px;
+border-radius:30px;
+background:rgba(5,25,55,.88);
+backdrop-filter:blur(8px);
+text-align:center;
+box-shadow:0 0 35px rgba(180,230,255,.5);
+}
+
+.close-btn{
+position:absolute;
+top:15px;
+right:18px;
+width:38px;
+height:38px;
+border:none;
+border-radius:50%;
+background:rgba(255,255,255,.25);
+color:white;
+font-size:28px;
+cursor:pointer;
+}
+
+.game-box h2{
+font-size:38px;
+margin:0 0 10px 0;
+}
+
+.range{
+font-size:24px;
+font-family:Arial,sans-serif;
+margin:0 0 25px 0;
+}
+
+.letters{
+display:flex;
+flex-direction:column;
+gap:18px;
+align-items:center;
+}
+
+.left,
+.right{
+display:flex;
+gap:14px;
+}
+
+.letter{
+width:78px;
+height:78px;
+border:none;
+border-radius:50%;
+font-size:36px;
+font-family:Georgia,'Times New Roman',serif;
+font-weight:bold;
+cursor:pointer;
+color:white;
+background:radial-gradient(circle at top,#d3dce7,#93a6b9 60%,#6d8094);
+box-shadow:
+0 6px 12px rgba(0,0,0,.35),
+0 0 18px rgba(180,220,255,.35);
+transition:.3s;
+}
+
+.letter:hover{
+transform:translateY(-6px) scale(1.05);
+}
+
+.letter.selected{
+background:radial-gradient(circle,#fff4a3,#f4d76b,#d6a83a);
+box-shadow:0 0 25px rgba(255,230,120,.9);
+}
+
+.letter.pair-a{
+background:radial-gradient(circle,#fff7bd,#f7d85c,#c99323);
+}
+
+.letter.pair-b{
+background:radial-gradient(circle,#dcc9ff,#8b6ee8,#5635ba);
+}
+
+.letter.pair-c{
+background:radial-gradient(circle,#c8f7b8,#76cf5a,#3f9635);
+}
+
+.letter.pair-d{
+background:radial-gradient(circle,#b8ecff,#47aee8,#1f70b5);
+}
+
+.letter.pair-e{
+background:radial-gradient(circle,#ffd1ec,#ef76ba,#b83d8c);
+}
+
+.letter.pair-f{
+background:radial-gradient(circle,#ffd2a0,#ff8f2e,#c95712);
+}
+
+.collection{
+width:150px;
+padding:16px;
+border-radius:25px;
+background:rgba(5,25,55,.88);
+backdrop-filter:blur(8px);
+text-align:center;
+box-shadow:0 0 28px rgba(180,230,255,.35);
+}
+
+.collection h3{
+font-size:22px;
+margin:0 0 16px 0;
+}
+
+.slot{
+width:52px;
+height:52px;
+margin:auto;
+margin-bottom:9px;
+border-radius:50%;
+background:rgba(255,255,255,.15);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+opacity:.25;
+transition:.5s;
+}
+
+.slot.active{
+opacity:1;
+transform:scale(1.1);
+box-shadow:0 0 18px rgba(255,255,180,.9);
+}
+
+.energy{
+font-size:22px;
+margin-top:14px;
+font-family:Arial,sans-serif;
+}
+/* ===== 1-2 ===== */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+body{
+margin:0;
+overflow:hidden;
+font-family:'ZCOOL KuaiLe',sans-serif;
+}
+
+#level1-2{
+position:relative;
+width:100vw;
+height:100vh;
+overflow:hidden;
+}
+
+.lake-bg{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+filter:blur(3px) brightness(.78) saturate(.9);
+transform:scale(1.03);
+z-index:1;
+}
+
+#level1-2::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+to bottom,
+rgba(20,80,150,.15),
+rgba(20,80,150,.28)
+);
+z-index:2;
+transition:1.5s;
+pointer-events:none;
+}
+
+#level1-2.finish::after{
+background:linear-gradient(
+to bottom,
+rgba(255,255,220,.18),
+rgba(70,160,255,.10)
+);
+box-shadow:inset 0 -120px 120px rgba(255,255,180,.28);
+}
+
+#mission-box{
+position:absolute;
+top:20%;
+left:50%;
+transform:translateX(-50%);
+width:680px;
+padding:24px 20px;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(8px);
+border-radius:30px;
+text-align:center;
+color:white;
+z-index:80;
+transition:opacity .8s ease;
+pointer-events:none;
+}
+
+#mission-box.hide{
+opacity:0;
+visibility:hidden;
+}
+
+.mission-title{
+font-family:'ZCOOL KuaiLe',sans-serif;
+font-size:32px;
+line-height:1.9;
+font-weight:700;
+color:white;
+margin-bottom:14px;
+letter-spacing:0;
+text-shadow:
+0 0 10px rgba(0,0,0,1),
+0 0 16px rgba(0,0,0,1);
+}
+
+.mission-text{
+font-family:'ZCOOL KuaiLe',sans-serif;
+font-size:28px;
+line-height:1.9;
+font-weight:400;
+color:white;
+margin-bottom:14px;
+letter-spacing:0;
+text-shadow:
+0 0 10px rgba(0,0,0,1),
+0 0 16px rgba(0,0,0,1);
+}
+
+.mission-hint{
+font-family:'ZCOOL KuaiLe',sans-serif;
+font-size:24px;
+font-weight:900;
+color:#ffe9a3;
+letter-spacing:0;
+text-shadow:0 0 10px rgba(255,230,150,.8);
+}
+
+#bubble-area{
+position:absolute;
+inset:0;
+z-index:20;
+pointer-events:auto;
+}
+
+.letter-bubble{
+position:absolute;
+width:105px;
+height:105px;
+border-radius:50%;
+border:3px solid rgba(255,255,255,0.82);
+background:rgba(255,255,255,0.20);
+backdrop-filter:blur(8px);
+
+font-family:Georgia,'Times New Roman',serif;
+
+font-size:52px;
+font-weight:bold;
+
+color:#fff7b0;
+cursor:pointer;
+text-shadow:0 0 10px rgba(255,235,150,1);
+box-shadow:0 0 30px rgba(150,220,255,0.5);
+animation:floatBubble 3s infinite ease-in-out;
+transition:1.6s ease;
+z-index:30;
+pointer-events:auto;
+}
+
+.letter-bubble.selected{
+transform:scale(1.12);
+box-shadow:0 0 45px rgba(255,240,150,0.9);
+}
+
+.letter-bubble.matched{
+pointer-events:none;
+animation:none;
+}
+
+#finish-message{
+font-family:'ZCOOL KuaiLe',sans-serif;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+padding:28px 48px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:30px;
+font-size:42px;
+font-weight:900;
+color:white;
+opacity:0;
+transition:1s;
+z-index:100;
+text-align:center;
+letter-spacing:0;
+white-space:nowrap;
+text-shadow:
+0 0 10px rgba(0,0,0,1),
+0 0 16px rgba(0,0,0,1);
+box-shadow:0 0 30px rgba(255,255,255,0.08);
+pointer-events:none;
+}
+
+#finish-message.show{
+opacity:1;
+}
+
+@keyframes floatBubble{
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+}
+/* ===== 1-3 ===== */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+#stage3{
+font-family:'ZCOOL KuaiLe',sans-serif;
+background:black;
+}
+
+.game{
+position:relative;
+width:100%;
+height:100vh;
+overflow:hidden;
+}
+
+/* ===== 背景 ===== */
+
+.background{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url("../../02_素材/背景/level1-3_driftwood.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+z-index:1;
+}
+
+/* ===== 故事 ===== */
+
+#storyOverlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.08);
+cursor:pointer;
+z-index:20;
+}
+
+#storyText{
+position:absolute;
+left:50%;
+top:76%;
+transform:translateX(-50%);
+width:900px;
+text-align:center;
+font-size:30px;
+line-height:2.1;
+color:white;
+text-shadow:
+0 0 10px rgba(0,0,0,1),
+0 0 18px rgba(255,240,180,.45);
+animation:storyRise 15s linear forwards;
+}
+
+#storyText p{
+margin:2px 0;
+}
+
+@keyframes storyRise{
+0%{
+top:76%;
+opacity:0;
+}
+
+12%{
+opacity:1;
+}
+
+72%{
+top:22%;
+}
+
+100%{
+top:8%;
+opacity:1;
+}
+}
+.hideStory{
+animation:fadeOutStory 1s forwards;
+}
+
+@keyframes fadeOutStory{
+from{
+opacity:1;
+}
+
+to{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* ===== 湖面熱區 ===== */
+
+.lakeHotspot{
+position:absolute;
+display:none;
+cursor:pointer;
+z-index:45;
+}
+
+.lakeHotspot.active{
+display:block;
+}
+
+.hotspotLeft{
+left:18%;
+top:68%;
+width:180px;
+height:90px;
+}
+
+.hotspotMiddle{
+left:43%;
+top:80%;
+width:220px;
+height:100px;
+}
+
+.hotspotRight{
+left:69%;
+top:78%;
+width:200px;
+height:95px;
+}
+
+/* ===== 配對視窗 ===== */
+
+#matchWindow{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.35);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:100;
+}
+
+.hidden{
+display:none!important;
+}
+
+.match-box{
+width:760px;
+padding:45px;
+border-radius:36px;
+background:rgba(8,22,55,.84);
+backdrop-filter:blur(8px);
+box-shadow:0 0 30px rgba(180,230,255,.35);
+text-align:center;
+}
+
+.match-title{
+font-size:34px;
+color:white;
+margin-bottom:24px;
+line-height:1.8;
+white-space:pre-line;
+word-break:keep-all;
+}
+
+.small-letter{
+font-size:92px;
+margin-bottom:30px;
+font-family:Georgia,'Times New Roman',serif;
+font-weight:bold;
+color:white;
+}
+
+.choice-row{
+display:flex;
+justify-content:center;
+gap:18px;
+}
+
+.choice-row button{
+width:90px;
+height:90px;
+border:none;
+border-radius:50%;
+font-size:40px;
+font-family:Georgia,'Times New Roman',serif;
+font-weight:bold;
+background:
+radial-gradient(
+circle at top,
+#d3dce7,
+#93a6b9 60%,
+#6d8094
+);
+color:white;
+cursor:pointer;
+transition:
+transform .25s,
+opacity .25s;
+}
+
+/* ===== 月亮拼圖區 ===== */
+
+#moonPuzzle{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:35;
+pointer-events:none;
+}
+
+/* ===== 提示文字 ===== */
+
+#puzzleHint{
+position:absolute;
+left:4%;
+top:18%;
+width:520px;
+font-size:38px;
+line-height:1.65;
+white-space:nowrap;
+word-break:keep-all;
+color:white;
+z-index:80;
+pointer-events:none;
+}
+
+/* ===== 月亮拼圖位置 ===== */
+
+#moonBox{
+position:absolute;
+left:50%;
+top:25%;
+width:250px;
+height:250px;
+transform:
+translate(-50%,-50%)
+rotate(17deg);
+z-index:38;
+background:none;
+border:none;
+box-shadow:none;
+backdrop-filter:none;
+pointer-events:auto;
+}
+
+/* ===== 月亮圖片 ===== */
+
+#moonGray{
+position:absolute;
+left:50%;
+top:50%;
+width:100%;
+height:100%;
+transform:translate(-50%,-50%);
+object-fit:contain;
+opacity:.72;
+filter:
+grayscale(1)
+brightness(.72)
+contrast(1.02)
+drop-shadow(0 0 10px rgba(255,255,255,.25));
+pointer-events:none;
+}
+
+/* ===== 完成後月亮發光 ===== */
+
+#moonBox.complete #moonGray{
+opacity:1;
+filter:
+grayscale(0)
+brightness(1.22)
+contrast(1.1)
+drop-shadow(0 0 55px rgba(255,245,180,1));
+animation:moonCompleteGlow 2s infinite alternate;
+}
+
+@keyframes moonCompleteGlow{
+from{
+filter:
+brightness(1.05)
+drop-shadow(0 0 24px rgba(255,230,150,.75));
+}
+
+to{
+filter:
+brightness(1.3)
+drop-shadow(0 0 75px rgba(255,255,220,1));
+}
+}
+
+/* ===== 隱藏原本月光寶盒文字 ===== */
+
+#boxText{
+display:none;
+}
+
+/* ===== 漂流木：一開始隱藏，配對完成後由 JS 顯示 ===== */
+
+.wood-piece{
+display:none;
+position:absolute;
+width:145px;
+height:110px;
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+cursor:grab;
+touch-action:none;
+z-index:65;
+opacity:.72;
+transition:
+opacity .3s ease,
+filter .3s ease;
+filter:
+grayscale(.25)
+brightness(.8)
+drop-shadow(0 0 6px rgba(255,240,180,.25));
+}
+
+.wood-piece:hover{
+opacity:1;
+filter:
+brightness(1.15)
+drop-shadow(0 0 18px rgba(255,240,180,.8));
+}
+
+.wood-piece.found{
+opacity:1;
+filter:
+brightness(1.25)
+drop-shadow(0 0 24px rgba(255,240,180,1));
+}
+
+.wood-piece.collected{
+pointer-events:none;
+animation:collectPiece .65s ease forwards;
+}
+
+@keyframes collectPiece{
+0%{
+opacity:1;
+transform:scale(1);
+}
+
+60%{
+opacity:1;
+transform:scale(.75);
+filter:
+brightness(1.8)
+drop-shadow(0 0 42px rgba(255,240,180,1));
+}
+
+100%{
+opacity:0;
+transform:scale(.25);
+}
+}
+
+/* ===== 漂流木位置：由 JS 隨機產生 ===== */
+
+.piece1{
+background-image:url("../../02_素材/圖卡/edge_piece1.png");
+}
+
+.piece2{
+background-image:url("../../02_素材/圖卡/edge_piece2.png");
+}
+
+.piece3{
+background-image:url("../../02_素材/圖卡/edge_piece3.png");
+}
+
+.piece4{
+background-image:url("../../02_素材/圖卡/edge_piece4.png");
+}
+
+.piece5{
+background-image:url("../../02_素材/圖卡/edge_piece5.png");
+}
+
+/* ===== 提示煙霧 ===== */
+
+.smokeEffect{
+position:absolute;
+width:120px;
+height:80px;
+transform:translateX(-50%);
+pointer-events:none;
+z-index:80;
+}
+
+.smokeEffect::before,
+.smokeEffect::after{
+content:"";
+position:absolute;
+border-radius:50%;
+background:rgba(220,235,255,.35);
+filter:blur(10px);
+animation:smokeRise 1.3s ease-out forwards;
+}
+
+.smokeEffect::before{
+width:50px;
+height:50px;
+left:20px;
+top:20px;
+}
+
+.smokeEffect::after{
+width:66px;
+height:66px;
+left:48px;
+top:5px;
+}
+
+@keyframes smokeRise{
+0%{
+opacity:0;
+transform:translateY(18px) scale(.6);
+}
+
+35%{
+opacity:.55;
+}
+
+100%{
+opacity:0;
+transform:translateY(-38px) scale(1.3);
+}
+}
+
+/* ===== 想法框 ===== */
+
+.thoughtBubble{
+position:absolute;
+transform:translateX(-50%);
+width:420px;
+padding:18px 28px;
+background:rgba(8,18,45,.22);
+backdrop-filter:blur(4px);
+border:2px solid rgba(220,235,255,.72);
+border-radius:50%;
+color:white;
+font-size:19px;
+line-height:1.65;
+text-align:center;
+text-shadow:0 0 8px black;
+box-shadow:
+0 0 16px rgba(180,220,255,.35),
+inset 0 0 18px rgba(255,255,255,.04);
+pointer-events:none;
+z-index:90;
+animation:bubbleAppear 3s ease-in-out forwards;
+}
+
+.bubble-left::before,
+.bubble-right::before,
+.bubble-middle::before{
+content:"";
+position:absolute;
+bottom:-22px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:rgba(8,18,45,.18);
+border:2px solid rgba(220,235,255,.7);
+box-shadow:0 0 8px rgba(180,220,255,.25);
+}
+
+.bubble-left::after,
+.bubble-right::after,
+.bubble-middle::after{
+content:"";
+position:absolute;
+bottom:-46px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:rgba(8,18,45,.15);
+border:2px solid rgba(220,235,255,.6);
+box-shadow:0 0 6px rgba(180,220,255,.2);
+}
+
+.bubble-left::before{
+left:62%;
+}
+
+.bubble-left::after{
+left:72%;
+}
+
+.bubble-right::before{
+left:38%;
+}
+
+.bubble-right::after{
+left:28%;
+}
+
+.bubble-middle::before{
+left:50%;
+transform:translateX(-50%);
+}
+
+.bubble-middle::after{
+left:50%;
+transform:translateX(-50%);
+}
+
+@keyframes bubbleAppear{
+0%{
+opacity:0;
+transform:translateX(-50%) translateY(10px) scale(.94);
+}
+
+20%{
+opacity:1;
+}
+
+80%{
+opacity:1;
+}
+
+100%{
+opacity:0;
+transform:translateX(-50%) translateY(-8px) scale(.98);
+}
+}
+/* ===== 1-4 ===== */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+#stage4{
+    font-family:'ZCOOL KuaiLe',sans-serif;
+    background-image:url("../../02_素材/背景/level1-4_moonshards.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.game-page{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* ===== 說明文字框 ===== */
+
+.instruction-box{
+    position:absolute;
+    left:55%;
+    bottom:50px;
+    transform:translateX(-50%);
+
+    width:800px;
+    padding:18px 32px;
+
+    background:rgba(15,25,65,0.18);
+    backdrop-filter:blur(8px);
+
+    border:2px solid rgba(255,255,255,0.28);
+    border-radius:24px;
+
+    color:white;
+    text-align:center;
+
+    text-shadow:
+        0 0 10px rgba(0,0,0,1),
+        0 0 18px rgba(255,240,180,.45);
+
+    z-index:30;
+    transition:.8s ease;
+}
+
+.instruction-box.hide{
+    opacity:0;
+    pointer-events:none;
+}
+
+.instruction-title{
+    font-size:46px;
+    margin-bottom:10px;
+}
+
+.instruction-box p{
+    font-size:28px;
+    line-height:1.7;
+    word-break:keep-all;
+    white-space:normal;
+}
+
+/* ===== 月光碎片區 ===== */
+
+.shard-area{
+    position:absolute;
+    inset:0;
+    z-index:20;
+}
+
+/* ===== 月光光球 ===== */
+
+.moon-shard{
+    position:absolute;
+
+    width:42px;
+    height:42px;
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    color:transparent;
+    font-size:0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,235,1) 0%,
+            rgba(255,245,190,.85) 28%,
+            rgba(255,235,170,.42) 58%,
+            rgba(255,235,170,0) 100%
+        );
+
+    box-shadow:
+        0 0 12px rgba(255,240,180,.85),
+        0 0 24px rgba(255,240,180,.55),
+        0 0 36px rgba(255,240,180,.32);
+
+    transition:
+        opacity .3s ease,
+        box-shadow .3s ease;
+
+    animation:floatLight 3s ease-in-out infinite;
+}
+
+@keyframes floatLight{
+    0%{
+        transform:translateY(0) scale(.95);
+    }
+
+    50%{
+        transform:translateY(-8px) scale(1.06);
+    }
+
+    100%{
+        transform:translateY(0) scale(.95);
+    }
+}
+
+.moon-shard:hover{
+    animation:none;
+    transform:scale(1.18);
+    box-shadow:
+        0 0 16px rgba(255,245,190,.95),
+        0 0 30px rgba(255,240,180,.7),
+        0 0 46px rgba(255,240,180,.45);
+}
+
+.moon-shard.open{
+    width:82px;
+    height:82px;
+
+    color:white;
+    font-size:54px;
+    font-family:Georgia,'Times New Roman',serif;
+    font-weight:bold;
+
+    background:rgba(255,255,255,.10);
+    border:2px solid rgba(255,255,255,.45);
+    backdrop-filter:blur(5px);
+
+    box-shadow:
+        0 0 18px rgba(255,240,180,.75),
+        inset 0 0 16px rgba(255,255,255,.12);
+
+    text-shadow:
+        0 0 10px rgba(255,240,180,1),
+        0 0 18px rgba(255,240,180,.7);
+
+    animation:none;
+}
+
+.moon-shard.collected{
+    pointer-events:none;
+    animation:flyToMoon .9s ease-in forwards;
+}
+
+@keyframes flyToMoon{
+    0%{
+        opacity:1;
+        transform:scale(1);
+        filter:brightness(1.2);
+    }
+
+    60%{
+        opacity:1;
+        transform:translate(var(--fly-x),var(--fly-y)) scale(.65);
+        filter:brightness(1.8);
+    }
+
+    100%{
+        opacity:0;
+        transform:translate(var(--fly-x),var(--fly-y)) scale(.15);
+        filter:brightness(2.2);
+    }
+}
+
+/* ===== 完成訊息：預設不顯示 ===== */
+
+.message{
+    display:none;
+
+    position:absolute;
+    left:50%;
+    top:43%;
+    transform:translate(-50%,-50%);
+
+    color:#ffd76a;
+    font-size:92px;
+    font-weight:bold;
+    text-align:center;
+    letter-spacing:8px;
+    white-space:nowrap;
+
+    -webkit-text-stroke:3px rgba(70,45,0,.9);
+
+    text-shadow:
+        0 3px 0 rgba(90,55,0,.9),
+        0 0 10px rgba(255,220,80,.65),
+        0 0 24px rgba(255,180,0,.45);
+
+    z-index:80;
+    pointer-events:none;
+
+    animation:messagePop 1.1s ease-in-out infinite alternate;
+}
+
+.message::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+
+    width:760px;
+    height:760px;
+
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,250,190,.72) 0%,
+            rgba(255,220,80,.32) 32%,
+            rgba(255,180,0,.12) 52%,
+            rgba(255,180,0,0) 72%
+        );
+
+    z-index:-1;
+
+    animation:powerAura 1.4s ease-in-out infinite alternate;
+}
+
+.message::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+
+    width:1000px;
+    height:1000px;
+
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(255,235,120,.48) 0deg,
+            rgba(255,235,120,.05) 8deg,
+            rgba(255,235,120,0) 16deg,
+            rgba(255,235,120,.42) 24deg
+        );
+
+    filter:blur(2px);
+    opacity:.78;
+    z-index:-2;
+
+    animation:rotateAura 18s linear infinite;
+}
+
+@keyframes messagePop{
+    from{
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    to{
+        transform:translate(-50%,-50%) scale(1.04);
+    }
+}
+
+@keyframes powerAura{
+    from{
+        transform:translate(-50%,-50%) scale(.82);
+        opacity:.55;
+    }
+
+    to{
+        transform:translate(-50%,-50%) scale(1.2);
+        opacity:1;
+    }
+}
+
+@keyframes rotateAura{
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+/* 右下角按鈕不用，保險起見隱藏 */
+
+.next-btn{
+    display:none;
+}
+
+.hidden{
+    display:none !important;
+}
+/* ===== 1-5 ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+#stage5{
+    font-family:"Ma Shan Zheng","Microsoft JhengHei",sans-serif;
+}
+
+#game-container{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background-image:url("../../02_素材/背景/level1-5_starstones.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    overflow:hidden;
+}
+
+.bg-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(5,12,35,.12);
+    z-index:1;
+    pointer-events:none;
+}
+
+#instruction-box{
+    position:absolute;
+    top:34px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:20;
+    padding:12px 34px;
+    background:rgba(10,20,55,.58);
+    border:2px solid rgba(255,235,160,.78);
+    border-radius:32px;
+    color:#fff6c8;
+    font-size:22px;
+    letter-spacing:2px;
+    white-space:nowrap;
+    text-shadow:0 0 10px rgba(255,235,150,.85);
+    box-shadow:0 0 22px rgba(255,220,120,.38);
+}
+
+#start-summon-btn{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:25;
+    padding:18px 46px;
+    border-radius:40px;
+    border:3px solid rgba(255,240,170,.9);
+    background:rgba(18,28,70,.72);
+    color:#fff3b0;
+    font-size:30px;
+    font-family:"Ma Shan Zheng","Microsoft JhengHei",sans-serif;
+    letter-spacing:3px;
+    text-shadow:0 0 10px rgba(255,235,150,1),0 0 24px rgba(255,210,80,.8);
+    box-shadow:0 0 24px rgba(255,230,130,.55),inset 0 0 18px rgba(255,255,255,.12);
+    cursor:pointer;
+    transition:.25s;
+}
+
+#start-summon-btn:hover{
+    transform:translate(-50%,-50%) scale(1.05);
+    box-shadow:0 0 38px rgba(255,235,150,.85),inset 0 0 22px rgba(255,255,255,.18);
+}
+
+#modal-overlay{
+    position:absolute;
+    inset:0;
+    z-index:50;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.42);
+    backdrop-filter:blur(3px);
+}
+
+#modal-overlay.show{
+    display:flex;
+}
+
+#summon-modal{
+    width:820px;
+    height:520px;
+    padding:32px 42px;
+    border-radius:36px;
+    border:3px solid rgba(255,238,160,.85);
+    background:radial-gradient(circle at center,rgba(255,235,150,.18),rgba(25,35,85,.78) 42%,rgba(8,14,42,.88) 100%);
+    box-shadow:0 0 35px rgba(255,230,120,.6),0 0 80px rgba(90,150,255,.35),inset 0 0 35px rgba(255,255,255,.12);
+    text-align:center;
+}
+
+#modal-title{
+    color:#fff5bd;
+    font-size:36px;
+    letter-spacing:4px;
+    margin-bottom:12px;
+    text-shadow:0 0 10px rgba(255,235,150,1),0 0 26px rgba(255,210,90,.85);
+}
+
+#modal-hint{
+    color:#eaf3ff;
+    font-size:22px;
+    margin-bottom:26px;
+    text-shadow:0 0 8px rgba(180,220,255,.75);
+}
+
+#letter-grid{
+    width:660px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px 28px;
+}
+
+.summon-letter{
+    width:95px;
+    height:95px;
+    margin:0 auto;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.7),rgba(125,145,175,.9) 25%,rgba(55,70,105,.98) 68%,rgba(20,28,48,1) 100%);
+    border:4px solid rgba(255,240,180,.75);
+    color:#fff2a5;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:62px;
+    font-weight:bold;
+    text-shadow:0 0 8px rgba(255,235,140,1),0 0 20px rgba(255,220,90,.9);
+    box-shadow:inset -10px -12px 20px rgba(0,0,0,.38),inset 5px 5px 14px rgba(255,255,255,.24),0 0 22px rgba(180,220,255,.45);
+    cursor:pointer;
+    user-select:none;
+    transition:.25s;
+}
+
+.summon-letter:hover{
+    transform:scale(1.06);
+    box-shadow:inset -10px -12px 20px rgba(0,0,0,.38),inset 5px 5px 14px rgba(255,255,255,.24),0 0 34px rgba(255,235,150,.85);
+}
+
+.summon-letter.selected{
+    transform:scale(1.1);
+    border-color:rgba(255,255,210,.95);
+    box-shadow:0 0 38px rgba(255,235,130,1),0 0 70px rgba(255,200,60,.65);
+}
+
+.summon-letter.correct{
+    animation:correctVanish .55s forwards;
+}
+
+@keyframes correctVanish{
+    0%{transform:scale(1);opacity:1;}
+    50%{transform:scale(1.18);opacity:1;}
+    100%{transform:scale(.2);opacity:0;}
+}
+
+.summon-letter.wrong{
+    animation:wrongShake .3s;
+}
+
+@keyframes wrongShake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-6px);}
+    50%{transform:translateX(6px);}
+    75%{transform:translateX(-6px);}
+    100%{transform:translateX(0);}
+}
+
+.bg-stone-glow{
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    z-index:35;
+    opacity:0;
+    pointer-events:none;
+    background:radial-gradient(circle,rgba(255,245,160,.95) 0%,rgba(255,210,70,.55) 35%,rgba(255,180,40,.18) 60%,rgba(255,180,40,0) 75%);
+    box-shadow:0 0 35px rgba(255,235,120,.9),0 0 80px rgba(255,200,60,.7),0 0 130px rgba(255,180,40,.45);
+}
+
+.bg-stone-glow.show{
+    animation:stoneGlowIn .8s ease forwards;
+}
+
+@keyframes stoneGlowIn{
+    from{opacity:0;transform:translate(-50%,-50%) scale(.4);}
+    to{opacity:1;transform:translate(-50%,-50%) scale(1);}
+}
+
+#altar-burst{
+    position:absolute;
+    left:50%;
+    top:51%;
+    transform:translate(-50%,-50%) scale(0);
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    z-index:36;
+    opacity:0;
+    pointer-events:none;
+    background:radial-gradient(circle,rgba(255,255,210,1) 0%,rgba(255,225,90,.75) 30%,rgba(255,190,40,.35) 55%,rgba(255,190,40,0) 75%);
+}
+
+#altar-burst.show{
+    animation:altarBurst 1.5s ease forwards;
+}
+
+@keyframes altarBurst{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.2);}
+    50%{opacity:1;transform:translate(-50%,-50%) scale(1.4);}
+    100%{opacity:.85;transform:translate(-50%,-50%) scale(1);}
+}
+
+#final-star{
+    position:absolute;
+    left:50%;
+    top:68%;
+    width:300px;
+    height:auto;
+    transform:translate(-50%,-50%) scale(0);
+    opacity:0;
+    z-index:80;
+    pointer-events:none;
+    filter:drop-shadow(0 0 15px rgba(255,255,255,.9)) drop-shadow(0 0 35px rgba(255,220,120,.9)) drop-shadow(0 0 80px rgba(255,190,60,.8));
+}
+
+#final-star.show{
+    animation:magicStarBorn 2.5s ease forwards;
+}
+
+@keyframes magicStarBorn{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(0);}
+    30%{opacity:1;transform:translate(-50%,-50%) scale(.8);}
+    60%{opacity:1;transform:translate(-50%,-80%) scale(1.15);}
+    100%{opacity:1;transform:translate(-50%,-130%) scale(1);}
+}
+
+#complete-message{
+    position:absolute;
+    left:50%;
+    top:68%;
+    transform:translateX(-50%);
+    opacity:0;
+    z-index:85;
+    padding:18px 42px;
+    background:rgba(10,20,60,.76);
+    border:2px solid rgba(255,235,160,.85);
+    border-radius:32px;
+    color:#fff8d0;
+    font-size:32px;
+    letter-spacing:3px;
+    text-shadow:0 0 10px rgba(255,235,150,.85);
+    pointer-events:none;
+}
+
+#complete-message.show{
+    animation:showMessage 1s forwards;
+}
+
+@keyframes showMessage{
+    from{opacity:0;transform:translateX(-50%) translateY(20px);}
+    to{opacity:1;transform:translateX(-50%) translateY(0);}
+}
+
+#final-star.float{
+    animation:starFloat 4s ease-in-out infinite;
+}
+
+@keyframes starFloat{
+    0%{
+        transform:translate(-50%,-130%) scale(1);
+    }
+
+    50%{
+        transform:translate(-50%,-150%) scale(1.04);
+    }
+
+    100%{
+        transform:translate(-50%,-130%) scale(1);
+    }
+}
+
+#final-star.float{
+    animation:starFloat 4s ease-in-out infinite;
+}
+
+@keyframes starFloat{
+
+    0%{
+        transform:translate(-50%,-95%) scale(1);
+    }
+
+    50%{
+        transform:translate(-50%,-110%) scale(1.04);
+    }
+
+    100%{
+        transform:translate(-50%,-95%) scale(1);
+    }
+
+}
+
+#final-star.float{
+    opacity:1;
+    animation:starFloat 4s ease-in-out infinite;
+}
+
+@keyframes starFloat{
+    0%{
+        opacity:1;
+        transform:translate(-50%,-130%) scale(1);
+    }
+
+    50%{
+        opacity:1;
+        transform:translate(-50%,-145%) scale(1.04);
+    }
+
+    100%{
+        opacity:1;
+        transform:translate(-50%,-130%) scale(1);
+    }
+}
+
+/* ===== ending ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+#stageEnding{
+    font-family:"Ma Shan Zheng",cursive;
+}
+
+#ending-container{
+    position:relative;
+    width:100vw;
+    height:100vh;
+
+    background-image:
+    url("../../02_素材/背景/owl_celebrate_bg.png");
+
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+}
+
+/* 背景微暗 */
+
+.ending-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.25);
+    z-index:1;
+}
+
+/* 六顆符文石橢圓發光 */
+
+.rune-glow{
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        ellipse,
+        rgba(120,180,255,.55),
+        rgba(120,180,255,.20),
+        transparent 75%
+    );
+
+    box-shadow:
+    0 0 22px rgba(120,180,255,.35);
+
+    animation:
+    runeGlow 3s ease-in-out infinite;
+
+    pointer-events:none;
+
+    z-index:3;
+}
+
+/* 左側三顆 */
+
+.rune1{
+    width:65px;
+    height:120px;
+
+    left:4.5%;
+    bottom:2%;
+
+    transform:rotate(-18deg);
+}
+
+.rune2{
+    width:65px;
+    height:95px;
+
+    left:2.5%;
+    bottom:19%;
+
+    transform:rotate(-12deg);
+
+    animation-delay:.5s;
+}
+
+.rune3{
+    width:55px;
+    height:95px;
+
+    left:10%;
+    bottom:16%;
+
+    transform:rotate(-12deg);
+
+    animation-delay:1s;
+}
+
+/* 右側三顆 */
+
+.rune4{
+    width:75px;
+    height:150px;
+
+    right:2.5%;
+    bottom:-3.5%;
+
+    transform:rotate(25deg);
+
+    animation-delay:1.5s;
+}
+
+.rune5{
+    width:70px;
+    height:140px;
+
+    right:3%;
+    bottom:17%;
+
+    transform:rotate(15deg);
+
+    animation-delay:2s;
+}
+
+.rune6{
+    width:70px;
+    height:120px;
+
+    right:12%;
+    bottom:9%;
+
+    transform:rotate(13deg);
+
+    animation-delay:2.5s;
+}
+
+/* 少量星光 */
+
+.ending-star{
+    position:absolute;
+
+    color:#fff6a8;
+
+    font-size:30px;
+
+    text-shadow:
+    0 0 10px #fff6a8,
+    0 0 20px #ffd54f;
+
+    animation:
+    endingStarFloat 5s ease-in-out infinite;
+
+    z-index:4;
+
+    pointer-events:none;
+}
+
+.star1{
+    top:18%;
+    left:22%;
+}
+
+.star2{
+    top:30%;
+    left:78%;
+    animation-delay:1.5s;
+}
+
+.star3{
+    top:72%;
+    left:70%;
+    animation-delay:3s;
+}
+
+/* 字幕 */
+
+#ending-text{
+    position:absolute;
+
+    right:8%;
+    bottom:-500px;
+
+    width:38%;
+
+    text-align:left;
+
+    color:#fff6cf;
+
+    font-size:34px;
+    line-height:1.9;
+
+    text-shadow:
+    0 0 12px rgba(255,230,120,.85),
+    0 0 24px rgba(255,210,80,.45);
+
+    z-index:10;
+
+    animation:
+    endingScroll 22s linear forwards;
+}
+
+#ending-text p{
+    margin:12px 0;
+}
+
+/* 按鈕 */
+
+#next-chapter-btn{
+    position:absolute;
+
+    right:10%;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    padding:28px 80px;
+
+    border:none;
+    border-radius:999px;
+
+    cursor:pointer;
+
+    font-family:
+    "Ma Shan Zheng",
+    cursive;
+
+    font-size:48px;
+
+    color:#fff9d8;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(72,120,72,.98),
+        rgba(38,82,38,.98)
+    );
+
+    border:
+    3px solid
+    rgba(255,240,170,.9);
+
+    box-shadow:
+    0 0 35px rgba(255,220,120,.7);
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:none;
+
+    z-index:20;
+}
+
+#next-chapter-btn.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+#next-chapter-btn:hover,
+#next-chapter-btn:active,
+#next-chapter-btn:focus{
+    transform:translateY(-50%);
+}
+
+/* 動畫 */
+
+@keyframes runeGlow{
+    0%{
+        opacity:.25;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.25;
+    }
+}
+
+@keyframes endingScroll{
+    0%{
+        bottom:-500px;
+        opacity:0;
+    }
+
+    8%{
+        opacity:1;
+    }
+
+    92%{
+        opacity:1;
+    }
+
+    100%{
+        bottom:110%;
+        opacity:.9;
+    }
+}
+
+@keyframes endingStarFloat{
+    0%{
+        opacity:.2;
+        transform:translateY(0);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateY(-10px);
+    }
+
+    100%{
+        opacity:.2;
+        transform:translateY(0);
+    }
+}
