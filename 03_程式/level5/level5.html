@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第五關：最終試煉</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="level5.css">
+</head>
+
+<body>
+
+  <div class="game-container">
+
+    <section id="intro-screen" class="screen">
+      <div class="dialog-box">
+        <p>
+          你已經通過前面的冒險。<br>
+          現在，森林會根據你的學習紀錄，<br>
+          產生最後的試煉。<br><br>
+          準備好了嗎？
+        </p>
+
+        <button id="start-btn">開始最終試煉</button>
+      </div>
+    </section>
+
+    <section id="game-screen" class="screen hidden">
+      <div class="game-board">
+
+        <div id="question-count">第 1 / 3 題</div>
+
+        <div id="question-area"></div>
+
+        <div id="options-area"></div>
+
+        <div id="feedback"></div>
+
+      </div>
+    </section>
+
+    <section id="complete-screen" class="screen hidden">
+      <div class="dialog-box">
+        <p>
+          太棒了！<br>
+          你完成了最終試煉。<br><br>
+          接下來，AI 導師會整理你的學習表現。
+        </p>
+
+        <button id="ai-btn">查看 AI 導師回饋</button>
+      </div>
+    </section>
+
+  </div>
+
+  <audio id="bgm" loop>
+    <source src="../../04_音檔/Crossing The Streams - Jeremy Korpas.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="level5.js"></script>
+
+</body>
+</html>

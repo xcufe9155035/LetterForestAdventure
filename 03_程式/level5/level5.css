@@ -1,0 +1,195 @@
+@font-face{
+  font-family:"StarPanda";
+  src:url("../../02_素材/字體/StarPandaKidsBeta2.1.otf") format("opentype");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  overflow:hidden;
+  font-family:"Ma Shan Zheng",cursive;
+}
+
+.game-container{
+  width:100vw;
+  height:100vh;
+
+  background-image:
+  url("../../02_素材/背景/level4_grassland.png");
+
+  background-size:cover;
+  background-position:center;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.screen{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.dialog-box{
+  width:900px;
+
+  padding:40px;
+
+  text-align:center;
+
+  border-radius:30px;
+
+  background:
+  rgba(255,245,220,.9);
+
+  border:4px solid #b08a52;
+
+  box-shadow:
+  0 0 30px rgba(0,0,0,.25);
+}
+
+.dialog-box p{
+  font-family:"StarPanda";
+
+  font-size:34px;
+
+  line-height:1.8;
+
+  color:#5a3513;
+}
+
+#start-btn,
+#ai-btn{
+
+  margin-top:30px;
+
+  width:360px;
+  height:90px;
+
+  border:none;
+
+  border-radius:50px;
+
+  cursor:pointer;
+
+  font-size:34px;
+
+  font-family:"StarPanda";
+
+  background:
+  linear-gradient(
+    180deg,
+    #ffe38d,
+    #e6a12f
+  );
+
+  color:#5a3513;
+}
+
+.game-board{
+
+  width:1100px;
+
+  padding:50px;
+
+  border-radius:35px;
+
+  background:
+  rgba(255,245,220,.88);
+
+  text-align:center;
+}
+
+#question-count{
+
+  font-size:34px;
+
+  color:#5a3513;
+
+  margin-bottom:40px;
+}
+
+#question-area{
+
+  min-height:140px;
+
+  font-size:50px;
+
+  font-family:
+  Georgia,
+  "Times New Roman",
+  serif;
+
+  margin-bottom:40px;
+}
+
+#options-area{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:25px;
+
+  flex-wrap:wrap;
+}
+
+.option-btn{
+
+  width:180px;
+  height:90px;
+
+  border:none;
+
+  border-radius:20px;
+
+  cursor:pointer;
+
+  font-size:34px;
+
+  font-weight:bold;
+
+  background:
+  linear-gradient(
+    180deg,
+    #ffe08a,
+    #d88931
+  );
+}
+
+.option-btn.correct{
+
+  background:
+  #ffe84d;
+}
+
+.option-btn.wrong{
+
+  background:
+  #999;
+
+  color:white;
+}
+
+#feedback{
+
+  min-height:50px;
+
+  margin-top:35px;
+
+  font-size:32px;
+
+  color:#5a3513;
+}
