@@ -33,6 +33,53 @@ document.addEventListener("click", () => {
 }, { once:true });
 
 /* =========================================================
+   紀錄資料到 Google Sheet
+========================================================= */
+
+async function sendLog(logData){
+
+    try{
+
+        const payload = {
+
+            name: localStorage.getItem("playerId"),
+
+            email: localStorage.getItem("playerEmail"),
+
+            log: typeof logData === "object"
+                ? JSON.stringify(logData)
+                : logData
+
+        };
+
+        const response = await fetch(
+            "/api/log",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(payload)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("log result:",result);
+
+        return result.status === "success";
+
+    }catch(error){
+
+        console.error("sendLog error:",error);
+
+        return false;
+
+    }
+
+}
+
+/* =========================================================
    1-1 月光湖：Aa-Ff
 ========================================================= */
 function initStage1(){
@@ -1028,7 +1075,11 @@ function initStage5(){
             completeMessage.classList.add("show");
         },2500);
 
-        setTimeout(()=>{
+        setTimeout(async ()=>{
+            await sendLog({
+                event:"level1_complete"
+            });
+
             showStage("ending");
         },5500);
     }
@@ -1058,10 +1109,16 @@ function startEndingPage(){
 /* =========================================================
    啟動全部小關卡
 ========================================================= */
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",async ()=>{
+
+    await sendLog({
+        event:"level1_start"
+    });
+
     initStage1();
     initStage2();
     initStage3();
     initStage4();
     initStage5();
+
 });
