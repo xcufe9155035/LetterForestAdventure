@@ -1,0 +1,95 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    url("../../02_素材/背景/owl_celebrate_bg.png");
+
+    background-size:cover;
+    background-position:center;
+
+    font-family:"Ma Shan Zheng",cursive;
+}
+
+.container{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.report-card{
+
+    width:900px;
+
+    padding:50px;
+
+    border-radius:35px;
+
+    background:
+    rgba(255,245,220,.92);
+
+    text-align:center;
+
+    box-shadow:
+    0 0 30px rgba(0,0,0,.3);
+}
+
+.report-card h1{
+
+    color:#5a3513;
+
+    margin-bottom:35px;
+
+    font-size:56px;
+}
+
+#report-content{
+
+    font-size:34px;
+
+    line-height:2;
+
+    color:#5a3513;
+
+    min-height:320px;
+}
+
+#finish-btn{
+
+    margin-top:30px;
+
+    width:320px;
+    height:90px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:34px;
+
+    font-family:"Ma Shan Zheng",cursive;
+
+    background:
+    linear-gradient(
+        180deg,
+        #ffe38d,
+        #e6a12f
+    );
+}
