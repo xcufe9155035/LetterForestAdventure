@@ -8,8 +8,7 @@ bgm.volume = 0.25;
 
 let currentStage = "stage1";
 let endingTimerStarted = false;
-const GAS_URL =
-"https://script.google.com/macros/s/AKfycbyL-82aqYBHIunr7akyNIxqMHxX0JWr-FVMdnOahg-dSTTWNqTRdTtDbczKojo6RZwJ/exec";
+const AI_URL = "/api/ai";
 
 function showStage(stageNumber){
     const targetId = stageNumber === "ending" ? "stageEnding" : "stage" + stageNumber;
@@ -1118,8 +1117,7 @@ async function startEndingPage(){
             level4Wrong:0
         };
 
-        const response = await fetch(
-            GAS_URL,
+        const AI_URL = "/api/ai";
             {
                 method:"POST",
                 headers:{
@@ -1139,15 +1137,15 @@ async function startEndingPage(){
             result.reply ||
             "你今天的表現很棒！繼續努力喔！";
 
-    }catch(error){
+}catch(error){
 
-        console.error(error);
+    console.error("AI ERROR:", error);
 
-        aiTitle.innerHTML = "🦉 AI魔法導師";
+    aiTitle.innerHTML = "🦉 AI魔法導師";
 
-        aiFeedback.innerHTML =
-            "魔法訊息暫時無法傳送，但你今天真的很努力！";
-    }
+    aiFeedback.innerHTML =
+        error.message || "魔法訊息暫時無法傳送";
+}
 
     setTimeout(()=>{
 
