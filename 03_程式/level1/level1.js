@@ -8,6 +8,8 @@ bgm.volume = 0.25;
 
 let currentStage = "stage1";
 let endingTimerStarted = false;
+const GAS_URL =
+"https://script.google.com/macros/s/AKfycbyL-82aqYBHIunr7akyNIxqMHxX0JWr-FVMdnOahg-dSTTWNqTRdTtDbczKojo6RZwJ/exec";
 
 function showStage(stageNumber){
     const targetId = stageNumber === "ending" ? "stageEnding" : "stage" + stageNumber;
@@ -1090,20 +1092,80 @@ function initStage5(){
 /* =========================================================
    第一關結束頁
 ========================================================= */
-function startEndingPage(){
+async function startEndingPage(){
+
     if(endingTimerStarted) return;
     endingTimerStarted = true;
 
     const nextBtn = document.getElementById("next-chapter-btn");
 
+    const aiBox = document.getElementById("ai-tutor-box");
+    const aiTitle = document.getElementById("ai-title");
+    const aiFeedback = document.getElementById("ai-feedback");
+
+    nextBtn.style.display = "none";
+
+    aiBox.style.display = "block";
+
+    try{
+
+        const gameData = JSON.parse(
+            localStorage.getItem("letterForestGameData")
+        ) || {
+            level1Wrong:0,
+            level2Wrong:0,
+            level3Wrong:0,
+            level4Wrong:0
+        };
+
+        const response = await fetch(
+            GAS_URL,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(gameData)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("AI result:", result);
+
+        aiTitle.innerHTML = "🦉 AI魔法導師的建議";
+
+        aiFeedback.innerHTML =
+            result.reply ||
+            "你今天的表現很棒！繼續努力喔！";
+
+    }catch(error){
+
+        console.error(error);
+
+        aiTitle.innerHTML = "🦉 AI魔法導師";
+
+        aiFeedback.innerHTML =
+            "魔法訊息暫時無法傳送，但你今天真的很努力！";
+    }
+
     setTimeout(()=>{
+
+        nextBtn.style.display = "inline-block";
+
         nextBtn.classList.add("show");
-    },21000);
+
+    },3000);
 
     nextBtn.addEventListener("click",()=>{
+
         localStorage.removeItem("level1BgmTime");
-        window.location.href = "../level2/level2.html";
+
+        window.location.href =
+            "../level2/level2.html";
+
     });
+
 }
 
 /* =========================================================

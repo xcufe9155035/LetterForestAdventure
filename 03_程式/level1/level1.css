@@ -1985,3 +1985,49 @@ transform:translateX(-50%) translateY(-8px) scale(.98);
         transform:translateY(0);
     }
 }
+
+#ai-tutor-box{
+
+    width:760px;
+    margin:30px auto 0 auto;
+
+    padding:24px 30px;
+
+    background:rgba(10,20,50,.55);
+    backdrop-filter:blur(8px);
+
+    border-radius:24px;
+
+    border:2px solid rgba(255,240,180,.45);
+
+    color:white;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 25px rgba(255,230,150,.25);
+
+    z-index:50;
+}
+
+#ai-title{
+
+    font-size:30px;
+    color:#ffe9a3;
+
+    margin-bottom:16px;
+
+    text-shadow:
+    0 0 12px rgba(255,230,150,.8);
+}
+
+#ai-feedback{
+
+    font-size:24px;
+
+    line-height:1.8;
+
+    color:white;
+
+    white-space:pre-line;
+}
