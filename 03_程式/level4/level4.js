@@ -18,12 +18,65 @@ const audioPath = "../../04_音檔/animal_word/";
 
 let bgmStarted = false;
 
+let score = 0;
+let wrongQuestions = [];
+
+async function sendLog(logData){
+
+    try{
+
+        const payload = {
+
+            name: localStorage.getItem("playerId"),
+
+            email: localStorage.getItem("playerEmail"),
+
+            log: typeof logData === "object"
+                ? JSON.stringify(logData)
+                : logData
+
+        };
+
+        const response = await fetch(
+            "/api/log",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(payload)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("log result:", result);
+
+        return result.status === "success";
+
+    }catch(error){
+
+        console.error("sendLog error:", error);
+
+        return false;
+
+    }
+
+}
+
 document.addEventListener("click", () => {
     if(bgmStarted) return;
 
     bgmStarted = true;
-    bgm.volume = 0.35;
-    bgm.play().catch(() => {});
+
+    if(bgm){
+        bgm.volume = 0.35;
+        bgm.play().catch(() => {});
+    }
+
+    sendLog({
+        event:"level4_bgm_start"
+    });
 });
 
 const questionBank = [
@@ -56,6 +109,11 @@ let canChoose = true;
 
 setTimeout(() => {
     storyBox.style.display = "block";
+
+    sendLog({
+        event:"level4_story_show"
+    });
+
 }, 6500);
 
 setTimeout(() => {
@@ -81,8 +139,15 @@ startBtn.addEventListener("click", () => {
 function startGame(){
     gameQuestions = shuffle([...questionBank]).slice(0,5);
     currentQuestion = 0;
+    score = 0;
+    wrongQuestions = [];
 
     gameArea.style.display = "block";
+
+    sendLog({
+        event:"level4_start",
+        questions:gameQuestions
+    });
 
     showQuestion();
 }
@@ -109,7 +174,7 @@ function showQuestion(){
         btn.textContent = option;
 
         btn.addEventListener("click", () => {
-            checkAnswer(btn, option, q.answer);
+            checkAnswer(btn, option, q.answer, q);
         });
 
         optionsBox.appendChild(btn);
@@ -118,7 +183,14 @@ function showQuestion(){
 
 soundBtn.addEventListener("click", () => {
     const q = gameQuestions[currentQuestion];
+
     playWord(q.audio);
+
+    sendLog({
+        event:"level4_play_audio",
+        word:q.word,
+        audio:q.audio
+    });
 });
 
 function playWord(audioFile){
@@ -141,7 +213,7 @@ function makeOptions(answer){
     return shuffle([answer, ...wrongOptions]);
 }
 
-function checkAnswer(btn, selected, answer){
+function checkAnswer(btn, selected, answer, questionData){
     if(!canChoose) return;
 
     canChoose = false;
@@ -160,10 +232,23 @@ function checkAnswer(btn, selected, answer){
     });
 
     if(selected === answer){
+
+        score++;
+
         feedback.textContent = "答對了！它們有相同的開頭聲音！";
+
     }
     else{
+
+        wrongQuestions.push({
+            questionNumber: currentQuestion + 1,
+            questionWord: questionData.word,
+            correctAnswer: answer,
+            selectedAnswer: selected
+        });
+
         feedback.textContent = `正確答案是 ${answer}`;
+
     }
 
     setTimeout(() => {
@@ -179,12 +264,26 @@ function checkAnswer(btn, selected, answer){
 }
 
 function completeGame(){
+
+    sendLog({
+        event:"level4_complete",
+        score:score,
+        total:5,
+        wrongQuestions:wrongQuestions
+    });
+
     gameArea.style.display = "none";
     completeBox.style.display = "block";
 }
 
 nextBtn.addEventListener("click", () => {
-    alert("下一步接第五關");
+
+    sendLog({
+        event:"level4_next_level",
+        next:"level5"
+    });
+
+    window.location.href = "../level5/level5.html";
 });
 
 function shuffle(array){
