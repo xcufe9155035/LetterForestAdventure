@@ -216,7 +216,7 @@ playerModal.classList.add(
 
 
 window.location.href=
-"level1/level1-1.html";
+"03_程式/level1/level1-1.html";
 
 });
 
