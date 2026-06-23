@@ -21,6 +21,64 @@ const feedback = document.getElementById("feedback");
 let introShown = false;
 let introFinished = false;
 
+let selectedQuestions = [];
+let currentIndex = 0;
+let currentAnswer = "";
+
+let score = 0;
+let wrongQuestions = [];
+
+/* =========================================================
+   紀錄資料到 Google Sheet / API
+========================================================= */
+
+async function sendLog(logData){
+
+  try{
+
+    const payload = {
+
+      name: localStorage.getItem("playerId"),
+
+      email: localStorage.getItem("playerEmail"),
+
+      log: typeof logData === "object"
+        ? JSON.stringify(logData)
+        : logData
+
+    };
+
+    const response = await fetch(
+      "/api/log",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(payload)
+      }
+    );
+
+    const result = await response.json();
+
+    console.log("log result:", result);
+
+    return result.status === "success";
+
+  }catch(error){
+
+    console.error("sendLog error:", error);
+
+    return false;
+
+  }
+
+}
+
+/* =========================================================
+   第二關題庫：字母順序
+========================================================= */
+
 const allQuestions = [
   ["A", "B", "C", "D", "E", "F"],
   ["B", "C", "D", "E", "F", "G"],
@@ -44,10 +102,6 @@ const allQuestions = [
   ["U", "V", "W", "X", "Y", "Z"]
 ];
 
-let selectedQuestions = [];
-let currentIndex = 0;
-let currentAnswer = "";
-
 document.addEventListener("click", showIntroOnce);
 
 trailSign.addEventListener("click", startGame);
@@ -63,6 +117,10 @@ nextAreaBtn.addEventListener("click", function(){
   window.location.href = "../level3/level3.html";
 });
 
+/* =========================================================
+   開場
+========================================================= */
+
 function showIntroOnce(){
   if(introShown){
     return;
@@ -71,7 +129,7 @@ function showIntroOnce(){
   introShown = true;
   introScreen.classList.remove("hidden");
 
-  bgm.play();
+  bgm.play().catch(()=>{});
 
   document.removeEventListener("click", showIntroOnce);
 }
@@ -80,6 +138,10 @@ function closeIntroDialog(){
   introScreen.classList.add("hidden");
   introFinished = true;
 }
+
+/* =========================================================
+   開始遊戲
+========================================================= */
 
 function startGame(){
   if(!introFinished){
@@ -91,9 +153,19 @@ function startGame(){
 
   selectedQuestions = shuffle([...allQuestions]).slice(0, 3);
   currentIndex = 0;
+  score = 0;
+  wrongQuestions = [];
+
+  sendLog({
+    event:"level2_start"
+  });
 
   showQuestion();
 }
+
+/* =========================================================
+   顯示題目
+========================================================= */
 
 function showQuestion(){
   feedback.textContent = "";
@@ -144,6 +216,10 @@ function showQuestion(){
   });
 }
 
+/* =========================================================
+   判斷答案
+========================================================= */
+
 function checkAnswer(button, selected){
   const buttons = document.querySelectorAll(".option-btn");
 
@@ -152,6 +228,9 @@ function checkAnswer(button, selected){
   });
 
   if(selected === currentAnswer){
+
+    score++;
+
     button.classList.add("correct");
 
     if(currentIndex === 2){
@@ -179,6 +258,15 @@ function checkAnswer(button, selected){
     }, 1500);
 
   }else{
+
+    const currentQuestionData = selectedQuestions[currentIndex];
+
+    wrongQuestions.push({
+      question: currentQuestionData.join(" "),
+      correctAnswer: currentAnswer,
+      selectedAnswer: selected
+    });
+
     button.classList.add("wrong");
 
     feedback.textContent = "再想想字母的順序喔！";
@@ -193,6 +281,10 @@ function checkAnswer(button, selected){
     }, 900);
   }
 }
+
+/* =========================================================
+   產生鄰近選項
+========================================================= */
 
 function createNearbyOptions(answer, currentQuestion){
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -237,7 +329,19 @@ function createNearbyOptions(answer, currentQuestion){
   ];
 }
 
+/* =========================================================
+   過關與紀錄
+========================================================= */
+
 function showEnding(){
+
+  sendLog({
+    event:"level2_complete",
+    score: score,
+    total: 3,
+    wrongQuestions: wrongQuestions
+  });
+
   gameScreen.classList.add("hidden");
   endingScreen.classList.remove("hidden");
 
@@ -247,8 +351,17 @@ function showEnding(){
   }, 8000);
 }
 
+/* =========================================================
+   收集森林羅盤
+========================================================= */
+
 function collectCompass(){
   compassReward.classList.add("collected");
+
+  sendLog({
+    event:"level2_collect_compass",
+    reward:"森林羅盤"
+  });
 
   setTimeout(() => {
     compassScreen.classList.add("hidden");
@@ -258,6 +371,10 @@ function collectCompass(){
     nextAreaBtn.classList.remove("hidden");
   }, 900);
 }
+
+/* =========================================================
+   工具函式
+========================================================= */
 
 function shuffle(array){
   return array.sort(() => Math.random() - 0.5);
