@@ -29,6 +29,9 @@ let currentWord = "";
 let currentAudio = null;
 let canClick = true;
 
+let score = 0;
+let wrongQuestions = [];
+
 const startBtn = document.getElementById("start-btn");
 const storyText = document.getElementById("story-text");
 const bgm = document.getElementById("bgm");
@@ -38,6 +41,53 @@ if(bgm){
 }
 
 let storyStarted = false;
+
+/* =========================================================
+   紀錄資料到 Google Sheet / API
+========================================================= */
+
+async function sendLog(logData){
+
+    try{
+
+        const payload = {
+
+            name: localStorage.getItem("playerId"),
+
+            email: localStorage.getItem("playerEmail"),
+
+            log: typeof logData === "object"
+                ? JSON.stringify(logData)
+                : logData
+
+        };
+
+        const response = await fetch(
+            "/api/log",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(payload)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("log result:", result);
+
+        return result.status === "success";
+
+    }catch(error){
+
+        console.error("sendLog error:", error);
+
+        return false;
+
+    }
+
+}
 
 document.addEventListener("click",()=>{
 
@@ -50,6 +100,10 @@ document.addEventListener("click",()=>{
     }
 
     storyText.classList.add("play");
+
+    sendLog({
+        event:"level3_story_start"
+    });
 
     setTimeout(()=>{
 
@@ -95,6 +149,11 @@ function playWord(word){
 
     currentAudio = new Audio(`../../04_音檔/animal_word/${word}.mp3`);
     currentAudio.play();
+
+    sendLog({
+        event:"level3_play_audio",
+        word:word
+    });
 }
 
 function updateProgress(){
@@ -130,6 +189,8 @@ function loadQuestion(){
             if(!canClick) return;
 
             if(word === currentWord){
+
+                score++;
                 canClick = false;
                 card.classList.add("correct");
 
@@ -142,7 +203,15 @@ function loadQuestion(){
                         loadQuestion();
                     }
                 },700);
+
             }else{
+
+                wrongQuestions.push({
+                    questionNumber: currentQuestion + 1,
+                    correctWord: currentWord,
+                    selectedWord: word
+                });
+
                 card.classList.add("wrong");
 
                 setTimeout(()=>{
@@ -157,6 +226,14 @@ function loadQuestion(){
 }
 
 function showComplete(){
+
+    sendLog({
+        event:"level3_complete",
+        score:score,
+        total:totalQuestions,
+        wrongQuestions:wrongQuestions
+    });
+
     gameArea.classList.add("hidden");
     darkOverlay.style.display = "block";
     completeBox.classList.remove("hidden");
@@ -167,11 +244,22 @@ function showComplete(){
 }
 
 startBtn.addEventListener("click",()=>{
+
     introBox.classList.add("hidden");
     darkOverlay.style.display = "none";
     gameArea.classList.remove("hidden");
 
+    score = 0;
+    wrongQuestions = [];
+    currentQuestion = 0;
+
     createQuestionSet();
+
+    sendLog({
+        event:"level3_start",
+        questions:gameQuestions
+    });
+
     loadQuestion();
 });
 
@@ -180,6 +268,11 @@ playAudioBtn.addEventListener("click",()=>{
 });
 
 nextBtn.addEventListener("click",()=>{
+
+    sendLog({
+        event:"level3_next_level",
+        next:"level4"
+    });
 
     if(bgm){
         bgm.pause();
